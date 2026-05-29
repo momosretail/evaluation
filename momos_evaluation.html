@@ -649,9 +649,7 @@ function renderEvalSessionList(){
     const desc=s.purpose?'<div style="font-size:11px;color:var(--text-dim);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+s.purpose.slice(0,60)+(s.purpose.length>60?'…':'')+'</div>':'';
     return '<div class="card eval-session-card" data-sid="'+s.id+'" style="cursor:pointer"><div style="display:flex;align-items:center;gap:12px"><div style="flex:1"><div style="font-size:15px;font-weight:700;margin-bottom:3px">'+s.productName+type+'</div><div style="font-size:11px;color:var(--text-sub)">'+d+' · '+cnt+'명 평가 완료'+ft+'</div>'+desc+'</div><span style="color:var(--text-dim);font-size:18px">›</span></div></div>';
   }).join('');
-  el.querySelectorAll('.eval-session-card').forEach(card=>{
-    card.addEventListener('click',function(){openEvalForm(this.dataset.sid);});
-  });
+
 }
 function openEvalForm(sid){
   state.currentSessionId=sid;
@@ -884,6 +882,10 @@ function toggleEvalDetail(id){
 }
 // 이벤트 위임으로 eval-toggle 클릭 처리
 document.addEventListener('click',function(ev){
+  // 평가 세션 카드 클릭
+  const card=ev.target.closest('.eval-session-card');
+  if(card&&card.dataset.sid){openEvalForm(card.dataset.sid);return;}
+  // 평가 상세 토글 클릭
   const tog=ev.target.closest('.eval-toggle');
   if(tog&&tog.dataset.target)toggleEvalDetail(tog.dataset.target);
 });
