@@ -6,17 +6,17 @@
 <title>MOMOS COFFEE 품평 시스템</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#ffffff; --surface:#ffffff; --surface2:#f4f7fb;
-  --border:#dde6f2; --border-strong:#b8cceb;
-  --blue:#1f6eb7; --blue-dark:#155a9a; --blue-light:#e8f0fa; --blue-mid:#5090cc;
-  --green:#2a8a50; --green-dim:#e6f4ec;
-  --red:#c0392b; --red-dim:#fdecea;
-  --orange:#c07020; --orange-dim:#fdf3e3;
-  --text:#0f1923; --text-sub:#5a6a7a; --text-dim:#a0b0c0;
+:root{
+  --bg:#ffffff;--surface:#ffffff;--surface2:#f4f7fb;
+  --border:#dde6f2;--border-strong:#b8cceb;
+  --blue:#1f6eb7;--blue-dark:#155a9a;--blue-light:#e8f0fa;--blue-mid:#5090cc;
+  --green:#2a8a50;--green-dim:#e6f4ec;
+  --red:#c0392b;--red-dim:#fdecea;
+  --orange:#c07020;--orange-dim:#fdf3e3;
+  --text:#0f1923;--text-sub:#5a6a7a;--text-dim:#a0b0c0;
   --shadow-sm:0 1px 4px rgba(31,110,183,0.07);
   --shadow:0 2px 12px rgba(31,110,183,0.10);
-  --radius:14px; --radius-sm:9px; --radius-xs:6px;
+  --radius:14px;--radius-sm:9px;--radius-xs:6px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -41,7 +41,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','DM Sans'
 .btn-primary:active{transform:translateY(0)}
 .btn-secondary{background:#fff;color:var(--blue);border:1.5px solid var(--border-strong)}
 .btn-secondary:hover{background:var(--blue-light);border-color:var(--blue)}
-.btn-danger{background:var(--red-dim);color:var(--red);border:1.5px solid rgba(192,57,43,.2)}
 .input-group{margin-bottom:16px}
 .input-label{display:block;font-size:11px;font-weight:700;letter-spacing:1.2px;color:var(--text-sub);text-transform:uppercase;margin-bottom:7px}
 .input-field{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px;padding:12px 15px;transition:border-color .18s,box-shadow .18s;-webkit-appearance:none}
@@ -65,11 +64,32 @@ select.input-field{cursor:pointer}
 .badge-stop{background:var(--red-dim);color:var(--red);border:1px solid rgba(192,57,43,.18)}
 .badge-hold{background:var(--orange-dim);color:var(--orange);border:1px solid rgba(192,112,32,.18)}
 .badge-ref{background:var(--surface2);color:var(--text-sub);border:1px solid var(--border)}
+/* 점수 라디오 */
+.score-radio-group{display:flex;flex-direction:column;gap:7px}
+.score-radio-item{display:flex;align-items:stretch;cursor:pointer}
+.score-radio-item input[type="radio"]{display:none}
+.score-radio-box{flex:1;display:flex;align-items:center;gap:12px;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:#fff;transition:all .18s;cursor:pointer}
+.score-radio-box:hover{border-color:var(--blue);background:var(--blue-light)}
+.score-radio-item input:checked + .score-radio-box{border-color:var(--blue);background:var(--blue-light)}
+.score-radio-num{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--blue);width:30px;flex-shrink:0}
+.score-radio-title{font-size:13px;font-weight:700;color:var(--text);flex-shrink:0;min-width:52px}
+.score-radio-desc{font-size:11px;color:var(--text-sub);line-height:1.4}
+/* 세부 점수 슬라이더 */
+.score-slider-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.score-slider-label{font-size:12px;font-weight:500;width:40px;flex-shrink:0;color:var(--text)}
+.score-slider{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:var(--border);outline:none;cursor:pointer}
+.score-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 1px 4px rgba(31,110,183,.3)}
+.score-slider-val{font-size:13px;font-weight:700;color:var(--blue);width:24px;text-align:right;flex-shrink:0}
+/* 체크 칩 */
+.check-group{display:flex;flex-wrap:wrap;gap:8px}
+.check-chip{padding:7px 13px;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;-webkit-appearance:none}
+.check-chip:hover{border-color:var(--blue);color:var(--blue)}
+.check-chip.selected{border-color:var(--blue);background:var(--blue-light);color:var(--blue);font-weight:700}
 .section-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:12px}
 .hero{padding:36px 0 28px;text-align:center}
 .hero h1{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:7px;letter-spacing:-.3px}
 .hero p{color:var(--text-sub);font-size:13px;line-height:1.7}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:18px}
 .stat-box{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px 10px;text-align:center}
 .stat-box .s-val{font-family:'DM Sans',sans-serif;font-size:26px;font-weight:700;line-height:1;margin-bottom:4px}
 .stat-box .s-lbl{font-size:10px;color:var(--text-sub)}
@@ -81,7 +101,6 @@ select.input-field{cursor:pointer}
 .verdict-result.can-launch{background:var(--green-dim);border:1.5px solid rgba(42,138,80,.25)}
 .verdict-result.review{background:var(--orange-dim);border:1.5px solid rgba(192,112,32,.25)}
 .verdict-result.blocked{background:var(--red-dim);border:1.5px solid rgba(192,57,43,.25)}
-.verdict-result .vr-icon{font-size:18px}
 .verdict-result .vr-text{font-size:13px;font-weight:700}
 .verdict-result .vr-sub{font-size:11px;color:var(--text-sub);margin-top:2px}
 .eval-list-item{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--border)}
@@ -97,7 +116,7 @@ select.input-field{cursor:pointer}
 .share-url-box:hover{background:#d8e8f8}
 .share-url-box .url-text{flex:1;font-size:11px;color:var(--blue);word-break:break-all}
 .score-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:9px}
-.score-bar-label{font-size:12px;width:62px;flex-shrink:0;color:var(--text-sub)}
+.score-bar-label{font-size:12px;width:56px;flex-shrink:0;color:var(--text-sub)}
 .score-bar-wrap{flex:1;height:20px;background:var(--surface2);border-radius:4px;overflow:hidden;border:1px solid var(--border)}
 .score-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--blue-mid));display:flex;align-items:center;justify-content:flex-end;padding-right:8px;transition:width 1s ease}
 .score-bar-val{font-size:10px;font-weight:700;color:#fff}
@@ -135,77 +154,62 @@ select.input-field{cursor:pointer}
 .progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--blue-mid));transition:width .4s ease}
 .gs-url-input{font-size:12px;padding:10px 13px;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text);width:100%;font-family:'Noto Sans KR',sans-serif;margin-bottom:8px}
 .gs-url-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(31,110,183,.08)}
-/* 세부점수 슬라이더 */
-.score-slider-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.score-slider-label{font-size:12px;font-weight:500;width:80px;flex-shrink:0;color:var(--text)}
-.score-slider{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:var(--border);outline:none;cursor:pointer}
-.score-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 1px 4px rgba(31,110,183,.3)}
-.score-slider-val{font-size:13px;font-weight:700;color:var(--blue);width:24px;text-align:right;flex-shrink:0}
-/* 체크 그룹 */
-.check-group{display:flex;flex-wrap:wrap;gap:8px}
-.check-chip{padding:7px 13px;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;-webkit-appearance:none}
-.check-chip:hover{border-color:var(--blue);color:var(--blue)}
-.check-chip.selected{border-color:var(--blue);background:var(--blue-light);color:var(--blue);font-weight:700}
-.check-chip.selected-red{border-color:var(--red);background:var(--red-dim);color:var(--red);font-weight:700}
 @media(min-width:768px){
   .container{max-width:600px;padding:32px 36px 100px}
-  .stat-grid{grid-template-columns:repeat(4,1fr)}
   .page-title{font-size:24px}
 }
 </style>
 </head>
 <body>
 
-<!-- ── VIEW 1: 홈 ── -->
+<!-- VIEW 1: 홈 -->
 <div id="view-home" class="view active">
   <div class="top-bar">
     <div style="height:24px;color:#0f1923;display:flex;align-items:center;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="155 200 530 200" height="24" style="width:auto;display:block">
-
-<path fill="currentColor" d="M311.34,270.21c-23.05,0-37.09-14.62-37.09-32.17s13.81-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM338.13,238.03c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
-<path fill="currentColor" d="M541.56,270.21c-23.05,0-37.09-14.62-37.09-32.17s13.8-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM568.35,238.03c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
-<path fill="currentColor" d="M229.33,379.85c-2.46,1.64-12.64,9.36-30.77,9.36-22.11,0-37.67-12.87-37.67-32.29s15.91-32.06,36.27-32.06c16.96,0,26.56,7.6,31.47,11.35l-5.5,8.66c-6.55-4.33-13.45-9.71-25.97-9.71-16.03,0-25.97,10.06-25.97,22.46,0,10.65,8.78,21.29,27.26,21.29,14.16,0,23.17-6.43,26.32-8.54l4.56,9.48Z"/>
-<path fill="currentColor" d="M311.34,389.21c-23.05,0-37.09-14.62-37.09-32.17s13.81-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM338.13,357.04c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
-<path fill="currentColor" d="M468.75,337.03v-10.3h-75.87v60.6h10.3v-26.09h15.14v26.09h10.3v-26.09h34.14v-10.3h-34.14v-13.92h40.13ZM418.32,350.95h-15.14v-13.92h15.14v13.92Z"/>
-<path fill="currentColor" d="M675.2,387.34h-53.3v-60.6h53.3v10.3h-43.01v13.92h34.67v10.3h-34.67v15.79h43.01v10.3Z"/>
-<path fill="currentColor" d="M568.49,387.34h-53.3v-60.6h53.3v10.3h-43.01v13.92h34.67v10.3h-34.67v15.79h43.01v10.3Z"/>
-<polygon fill="currentColor" points="222.4 207.73 196.94 242.6 171.48 207.73 160.89 207.73 160.89 268.33 171.19 268.33 171.19 225.75 196.94 260.2 222.7 225.75 222.7 268.33 232.99 268.33 232.99 207.73 222.4 207.73"/>
-<polygon fill="currentColor" points="454.39 207.73 428.93 242.6 403.47 207.73 392.88 207.73 392.88 268.33 403.18 268.33 403.18 225.75 428.93 260.2 454.69 225.75 454.69 268.33 464.98 268.33 464.98 207.73 454.39 207.73"/>
-<path fill="currentColor" d="M650.14,231.95c-17.19-.16-19.38-3.18-19.38-7.8,0-5,4.86-8.32,16.64-8.32,10.46,0,19.17,3.08,25.2,6.45l2.15-4.2,2.34-4.75c-4.15-2.13-15.21-7.47-29.88-7.47-20.36,0-27.83,8.98-27.96,19.05-.15,11.87,9.12,16.94,23.64,17.33,20.52.56,27.12,1.91,27.08,9.03-.04,7-7.89,9.39-19.13,9.39-9.86,0-20.99-2.87-30.84-9.41l-4.45,9.06c8.47,6.19,21.15,10.49,34.82,10.49s30.4-2.51,30.64-19.77c.13-9.3-5.74-18.85-30.86-19.08Z"/>
+<path class="cls-1" d="M311.34,270.21c-23.05,0-37.09-14.62-37.09-32.17s13.81-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM338.13,238.03c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
+<path class="cls-1" d="M541.56,270.21c-23.05,0-37.09-14.62-37.09-32.17s13.8-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM568.35,238.03c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
+<path class="cls-1" d="M229.33,379.85c-2.46,1.64-12.64,9.36-30.77,9.36-22.11,0-37.67-12.87-37.67-32.29s15.91-32.06,36.27-32.06c16.96,0,26.56,7.6,31.47,11.35l-5.5,8.66c-6.55-4.33-13.45-9.71-25.97-9.71-16.03,0-25.97,10.06-25.97,22.46,0,10.65,8.78,21.29,27.26,21.29,14.16,0,23.17-6.43,26.32-8.54l4.56,9.48Z"/>
+<path class="cls-1" d="M311.34,389.21c-23.05,0-37.09-14.62-37.09-32.17s13.81-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM338.13,357.04c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
+<path class="cls-1" d="M468.75,337.03v-10.3h-75.87v60.6h10.3v-26.09h15.14v26.09h10.3v-26.09h34.14v-10.3h-34.14v-13.92h40.13ZM418.32,350.95h-15.14v-13.92h15.14v13.92Z"/>
+<path class="cls-1" d="M675.2,387.34h-53.3v-60.6h53.3v10.3h-43.01v13.92h34.67v10.3h-34.67v15.79h43.01v10.3Z"/>
+<path class="cls-1" d="M568.49,387.34h-53.3v-60.6h53.3v10.3h-43.01v13.92h34.67v10.3h-34.67v15.79h43.01v10.3Z"/>
+<polygon class="cls-1" points="222.4 207.73 196.94 242.6 171.48 207.73 160.89 207.73 160.89 268.33 171.19 268.33 171.19 225.75 196.94 260.2 222.7 225.75 222.7 268.33 232.99 268.33 232.99 207.73 222.4 207.73"/>
+<polygon class="cls-1" points="454.39 207.73 428.93 242.6 403.47 207.73 392.88 207.73 392.88 268.33 403.18 268.33 403.18 225.75 428.93 260.2 454.69 225.75 454.69 268.33 464.98 268.33 464.98 207.73 454.39 207.73"/>
+<path class="cls-1" d="M650.14,231.95c-17.19-.16-19.38-3.18-19.38-7.8,0-5,4.86-8.32,16.64-8.32,10.46,0,19.17,3.08,25.2,6.45l2.15-4.2,2.34-4.75c-4.15-2.13-15.21-7.47-29.88-7.47-20.36,0-27.83,8.98-27.96,19.05-.15,11.87,9.12,16.94,23.64,17.33,20.52.56,27.12,1.91,27.08,9.03-.04,7-7.89,9.39-19.13,9.39-9.86,0-20.99-2.87-30.84-9.41l-4.45,9.06c8.47,6.19,21.15,10.49,34.82,10.49s30.4-2.51,30.64-19.77c.13-9.3-5.74-18.85-30.86-19.08Z"/>
 </svg></div>
     <button class="action-btn" onclick="showView('view-settings')">설정</button>
   </div>
   <div class="container">
     <div class="hero">
       <div style="width:180px;margin:0 auto 20px;color:#0f1923"><svg xmlns="http://www.w3.org/2000/svg" viewBox="155 200 530 200" style="width:180px;height:auto;display:block">
-
-<path fill="currentColor" d="M311.34,270.21c-23.05,0-37.09-14.62-37.09-32.17s13.81-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM338.13,238.03c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
-<path fill="currentColor" d="M541.56,270.21c-23.05,0-37.09-14.62-37.09-32.17s13.8-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM568.35,238.03c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
-<path fill="currentColor" d="M229.33,379.85c-2.46,1.64-12.64,9.36-30.77,9.36-22.11,0-37.67-12.87-37.67-32.29s15.91-32.06,36.27-32.06c16.96,0,26.56,7.6,31.47,11.35l-5.5,8.66c-6.55-4.33-13.45-9.71-25.97-9.71-16.03,0-25.97,10.06-25.97,22.46,0,10.65,8.78,21.29,27.26,21.29,14.16,0,23.17-6.43,26.32-8.54l4.56,9.48Z"/>
-<path fill="currentColor" d="M311.34,389.21c-23.05,0-37.09-14.62-37.09-32.17s13.81-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM338.13,357.04c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
-<path fill="currentColor" d="M468.75,337.03v-10.3h-75.87v60.6h10.3v-26.09h15.14v26.09h10.3v-26.09h34.14v-10.3h-34.14v-13.92h40.13ZM418.32,350.95h-15.14v-13.92h15.14v13.92Z"/>
-<path fill="currentColor" d="M675.2,387.34h-53.3v-60.6h53.3v10.3h-43.01v13.92h34.67v10.3h-34.67v15.79h43.01v10.3Z"/>
-<path fill="currentColor" d="M568.49,387.34h-53.3v-60.6h53.3v10.3h-43.01v13.92h34.67v10.3h-34.67v15.79h43.01v10.3Z"/>
-<polygon fill="currentColor" points="222.4 207.73 196.94 242.6 171.48 207.73 160.89 207.73 160.89 268.33 171.19 268.33 171.19 225.75 196.94 260.2 222.7 225.75 222.7 268.33 232.99 268.33 232.99 207.73 222.4 207.73"/>
-<polygon fill="currentColor" points="454.39 207.73 428.93 242.6 403.47 207.73 392.88 207.73 392.88 268.33 403.18 268.33 403.18 225.75 428.93 260.2 454.69 225.75 454.69 268.33 464.98 268.33 464.98 207.73 454.39 207.73"/>
-<path fill="currentColor" d="M650.14,231.95c-17.19-.16-19.38-3.18-19.38-7.8,0-5,4.86-8.32,16.64-8.32,10.46,0,19.17,3.08,25.2,6.45l2.15-4.2,2.34-4.75c-4.15-2.13-15.21-7.47-29.88-7.47-20.36,0-27.83,8.98-27.96,19.05-.15,11.87,9.12,16.94,23.64,17.33,20.52.56,27.12,1.91,27.08,9.03-.04,7-7.89,9.39-19.13,9.39-9.86,0-20.99-2.87-30.84-9.41l-4.45,9.06c8.47,6.19,21.15,10.49,34.82,10.49s30.4-2.51,30.64-19.77c.13-9.3-5.74-18.85-30.86-19.08Z"/>
+<path class="cls-1" d="M311.34,270.21c-23.05,0-37.09-14.62-37.09-32.17s13.81-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM338.13,238.03c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
+<path class="cls-1" d="M541.56,270.21c-23.05,0-37.09-14.62-37.09-32.17s13.8-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM568.35,238.03c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
+<path class="cls-1" d="M229.33,379.85c-2.46,1.64-12.64,9.36-30.77,9.36-22.11,0-37.67-12.87-37.67-32.29s15.91-32.06,36.27-32.06c16.96,0,26.56,7.6,31.47,11.35l-5.5,8.66c-6.55-4.33-13.45-9.71-25.97-9.71-16.03,0-25.97,10.06-25.97,22.46,0,10.65,8.78,21.29,27.26,21.29,14.16,0,23.17-6.43,26.32-8.54l4.56,9.48Z"/>
+<path class="cls-1" d="M311.34,389.21c-23.05,0-37.09-14.62-37.09-32.17s13.81-32.17,37.09-32.17,37.09,14.74,37.09,32.17-13.81,32.17-37.09,32.17ZM338.13,357.04c0-11.7-10.06-21.88-26.79-21.88s-26.79,10.18-26.79,21.88,10.06,21.88,26.79,21.88,26.79-10.18,26.79-21.88Z"/>
+<path class="cls-1" d="M468.75,337.03v-10.3h-75.87v60.6h10.3v-26.09h15.14v26.09h10.3v-26.09h34.14v-10.3h-34.14v-13.92h40.13ZM418.32,350.95h-15.14v-13.92h15.14v13.92Z"/>
+<path class="cls-1" d="M675.2,387.34h-53.3v-60.6h53.3v10.3h-43.01v13.92h34.67v10.3h-34.67v15.79h43.01v10.3Z"/>
+<path class="cls-1" d="M568.49,387.34h-53.3v-60.6h53.3v10.3h-43.01v13.92h34.67v10.3h-34.67v15.79h43.01v10.3Z"/>
+<polygon class="cls-1" points="222.4 207.73 196.94 242.6 171.48 207.73 160.89 207.73 160.89 268.33 171.19 268.33 171.19 225.75 196.94 260.2 222.7 225.75 222.7 268.33 232.99 268.33 232.99 207.73 222.4 207.73"/>
+<polygon class="cls-1" points="454.39 207.73 428.93 242.6 403.47 207.73 392.88 207.73 392.88 268.33 403.18 268.33 403.18 225.75 428.93 260.2 454.69 225.75 454.69 268.33 464.98 268.33 464.98 207.73 454.39 207.73"/>
+<path class="cls-1" d="M650.14,231.95c-17.19-.16-19.38-3.18-19.38-7.8,0-5,4.86-8.32,16.64-8.32,10.46,0,19.17,3.08,25.2,6.45l2.15-4.2,2.34-4.75c-4.15-2.13-15.21-7.47-29.88-7.47-20.36,0-27.83,8.98-27.96,19.05-.15,11.87,9.12,16.94,23.64,17.33,20.52.56,27.12,1.91,27.08,9.03-.04,7-7.89,9.39-19.13,9.39-9.86,0-20.99-2.87-30.84-9.41l-4.45,9.06c8.47,6.19,21.15,10.49,34.82,10.49s30.4-2.51,30.64-19.77c.13-9.3-5.74-18.85-30.86-19.08Z"/>
 </svg></div>
       <h1>제품 품평 시스템</h1>
       <p>매뉴얼 기반 품평 · 실시간 집계<br>AI 개선안 자동 생성</p>
     </div>
     <button class="btn btn-primary" onclick="showView('view-new-session')">새 품평 세션 시작</button>
-    <div style="margin-top:16px;text-align:center">
-      <button class="back-btn" style="display:inline-flex;color:var(--text-sub)" onclick="showView('view-dashboard')">완료된 품평 보기</button>
+    <div style="margin-top:14px;text-align:center">
+      <button class="back-btn" style="display:inline-flex;color:var(--text-sub);margin:0 auto" onclick="showView('view-dashboard')">완료된 품평 보기</button>
     </div>
   </div>
   <nav class="bottom-nav">
-    <button class="nav-tab active" onclick="showView('view-home')"><span class="nav-icon">&#8857;</span><span class="nav-lbl">홈</span></button>
+    <button class="nav-tab active" onclick="showView('view-home')"><span class="nav-icon">&#9679;</span><span class="nav-lbl">홈</span></button>
     <button class="nav-tab" onclick="showView('view-eval-select')"><span class="nav-icon">&#9998;</span><span class="nav-lbl">평가</span></button>
     <button class="nav-tab" onclick="showView('view-dashboard')"><span class="nav-icon">&#9636;</span><span class="nav-lbl">집계</span></button>
     <button class="nav-tab" onclick="showView('view-settings')"><span class="nav-icon">&#9881;</span><span class="nav-lbl">설정</span></button>
   </nav>
 </div>
 
-<!-- ── VIEW 2: 새 세션 ── -->
+<!-- VIEW 2: 새 세션 -->
 <div id="view-new-session" class="view">
   <div class="top-bar">
     <button class="back-btn" onclick="showView('view-home')">← 뒤로</button>
@@ -229,7 +233,7 @@ select.input-field{cursor:pointer}
     </div>
     <div class="input-group">
       <label class="input-label">품평 제품 설명 / 핵심 검토 포인트</label>
-      <textarea class="input-field" id="new-purpose" placeholder="예: 초콜릿과 캐러멜의 진한 풍미를 지닌 에스쇼콜라 블렌드에 흑설탕 시럽의 묵직한 단맛을 더해, 우유와 함께 블렌딩했습니다. 이 과정에서 자연스럽게 형성된 밀크폼은 공기를 머금은 듯 가볍게 퍼지며, 입안을 부드럽게 감싸는 질감을 만들어냅니다. 쉐이커 기계를 사용하여 더욱 부드럽고 실키한 질감의 폼을 완성. 첫 입에 느껴지는 폼의 질감이 킥인 음료입니다."></textarea>
+      <textarea class="input-field" id="new-purpose" placeholder="예: 초콜릿과 캐러멜의 진한 풍미를 지닌 에스쇼콜라 블렌드에 흑설탕 시럽의 묵직한 단맛을 더해, 우유와 함께 블렌딩했습니다. 이 과정에서 자연스럽게 형성된 밀크폼은 공기를 머금은 듯 가볍게 퍼지며, 입안을 부드럽게 감싸는 질감을 만들어냅니다. 첫 입에 느껴지는 폼의 질감이 킥인 음료입니다."></textarea>
     </div>
     <div class="input-group">
       <label class="input-label">판매 예상가</label>
@@ -252,7 +256,7 @@ select.input-field{cursor:pointer}
   </div>
 </div>
 
-<!-- ── VIEW 3: 세션 선택 (평가자) ── -->
+<!-- VIEW 3: 세션 선택 -->
 <div id="view-eval-select" class="view">
   <div class="top-bar">
     <button class="back-btn" onclick="showView('view-home')">← 뒤로</button>
@@ -265,14 +269,14 @@ select.input-field{cursor:pointer}
     <div id="eval-session-list"><div style="text-align:center;padding:36px 0;color:var(--text-sub);font-size:13px">진행 중인 품평이 없습니다</div></div>
   </div>
   <nav class="bottom-nav">
-    <button class="nav-tab" onclick="showView('view-home')"><span class="nav-icon">&#8857;</span><span class="nav-lbl">홈</span></button>
+    <button class="nav-tab" onclick="showView('view-home')"><span class="nav-icon">&#9679;</span><span class="nav-lbl">홈</span></button>
     <button class="nav-tab active" onclick="showView('view-eval-select')"><span class="nav-icon">&#9998;</span><span class="nav-lbl">평가</span></button>
     <button class="nav-tab" onclick="showView('view-dashboard')"><span class="nav-icon">&#9636;</span><span class="nav-lbl">집계</span></button>
     <button class="nav-tab" onclick="showView('view-settings')"><span class="nav-icon">&#9881;</span><span class="nav-lbl">설정</span></button>
   </nav>
 </div>
 
-<!-- ── VIEW 4: 평가 폼 ── -->
+<!-- VIEW 4: 평가 폼 -->
 <div id="view-eval-form" class="view">
   <div class="top-bar">
     <button class="back-btn" onclick="showView('view-eval-select')">← 뒤로</button>
@@ -285,7 +289,6 @@ select.input-field{cursor:pointer}
       <div><div class="s-name" id="form-product-name">-</div><div class="s-date" id="form-session-date">-</div></div>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="form-progress" style="width:0%"></div></div>
-
     <div class="input-group">
       <label class="input-label">평가자 이름</label>
       <input type="text" class="input-field" id="eval-name" placeholder="이름을 입력하세요" oninput="updateProgress()"/>
@@ -298,17 +301,27 @@ select.input-field{cursor:pointer}
         <div><div class="criteria-title">기술적 의견</div><div class="criteria-sub">품질 · 재현성 · 보관성</div></div>
         <span class="criteria-badge badge-stop">반대 가능</span>
       </div>
-      <div class="input-group" style="margin-bottom:12px">
-        <label class="input-label">의견</label>
-        <textarea class="input-field" id="c1-comment" placeholder="품질, 재현성, 보관성에 대한 기술적 의견을 작성해주세요" oninput="updateProgress()"></textarea>
+      <div class="input-group" style="margin-bottom:14px">
+        <label class="input-label">기술적 완성도는 어느 수준이라고 생각하십니까?</label>
+        <div class="score-radio-group">
+          <label class="score-radio-item"><input type="radio" name="c1-score" value="5" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">5점</span><span class="score-radio-title">매우 우수</span><span class="score-radio-desc">품질, 재현성, 보관성 모두 우수하며 수정 없이 출시 가능</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c1-score" value="4" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">4점</span><span class="score-radio-title">통과</span><span class="score-radio-desc">경미한 수정 후 출시 가능</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c1-score" value="3" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">3점</span><span class="score-radio-title">논의</span><span class="score-radio-desc">품평단 논의 필요</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c1-score" value="2" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">2점</span><span class="score-radio-title">보완</span><span class="score-radio-desc">개선 후 재품평 필요</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c1-score" value="1" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">1점</span><span class="score-radio-title">재개발</span><span class="score-radio-desc">출시보다 재개발 필요</span></div></label>
+        </div>
       </div>
-      <div class="input-group" style="margin-bottom:0">
-        <label class="input-label">판정</label>
+      <div class="input-group" style="margin-bottom:14px">
+        <label class="input-label">최종 판정</label>
         <div class="verdict-group">
           <button class="verdict-btn" onclick="selectVerdict('c1',this,'출시')">출시</button>
           <button class="verdict-btn" onclick="selectVerdict('c1',this,'보류')">보류</button>
           <button class="verdict-btn" onclick="selectVerdict('c1',this,'반대')">반대</button>
         </div>
+      </div>
+      <div class="input-group" style="margin-bottom:0">
+        <label class="input-label">의견 작성 (필수)</label>
+        <textarea class="input-field" id="c1-comment" placeholder="기술적 의견을 작성해주세요" oninput="updateProgress()"></textarea>
       </div>
     </div>
 
@@ -319,17 +332,27 @@ select.input-field{cursor:pointer}
         <div><div class="criteria-title">브랜드 적합성</div><div class="criteria-sub">모모스 제품 철학 · 경험 기준</div></div>
         <span class="criteria-badge badge-stop">반대 가능</span>
       </div>
-      <div class="input-group" style="margin-bottom:12px">
-        <label class="input-label">의견</label>
-        <textarea class="input-field" id="c2-comment" placeholder="모모스 브랜드 기준에 부합하는지 작성해주세요" oninput="updateProgress()"></textarea>
+      <div class="input-group" style="margin-bottom:14px">
+        <label class="input-label">브랜드 적합성은 어느 수준이라고 생각하십니까?</label>
+        <div class="score-radio-group">
+          <label class="score-radio-item"><input type="radio" name="c2-score" value="5" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">5점</span><span class="score-radio-title">매우 우수</span><span class="score-radio-desc">모모스 철학과 경험 기준에 매우 부합</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c2-score" value="4" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">4점</span><span class="score-radio-title">통과</span><span class="score-radio-desc">전반적으로 적합하나 일부 보완 가능</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c2-score" value="3" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">3점</span><span class="score-radio-title">논의</span><span class="score-radio-desc">적합성에 대한 논의 필요</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c2-score" value="2" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">2점</span><span class="score-radio-title">보완</span><span class="score-radio-desc">브랜드 경험 및 방향성 보완 필요</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c2-score" value="1" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">1점</span><span class="score-radio-title">재개발</span><span class="score-radio-desc">브랜드 방향성과 재검토 필요</span></div></label>
+        </div>
       </div>
-      <div class="input-group" style="margin-bottom:0">
-        <label class="input-label">판정</label>
+      <div class="input-group" style="margin-bottom:14px">
+        <label class="input-label">최종 판정</label>
         <div class="verdict-group">
           <button class="verdict-btn" onclick="selectVerdict('c2',this,'출시')">출시</button>
           <button class="verdict-btn" onclick="selectVerdict('c2',this,'보류')">보류</button>
           <button class="verdict-btn" onclick="selectVerdict('c2',this,'반대')">반대</button>
         </div>
+      </div>
+      <div class="input-group" style="margin-bottom:0">
+        <label class="input-label">의견 작성 (필수)</label>
+        <textarea class="input-field" id="c2-comment" placeholder="브랜드 적합성 의견을 작성해주세요" oninput="updateProgress()"></textarea>
       </div>
     </div>
 
@@ -340,17 +363,27 @@ select.input-field{cursor:pointer}
         <div><div class="criteria-title">경험가치</div><div class="criteria-sub">차별성 · 우와 포인트</div></div>
         <span class="criteria-badge badge-hold">보류 가능</span>
       </div>
-      <div class="input-group" style="margin-bottom:12px">
-        <label class="input-label">의견</label>
-        <textarea class="input-field" id="c3-comment" placeholder="고객 관점의 차별성과 우와 포인트를 작성해주세요" oninput="updateProgress()"></textarea>
+      <div class="input-group" style="margin-bottom:14px">
+        <label class="input-label">고객 경험 가치는 어느 수준이라고 생각하십니까?</label>
+        <div class="score-radio-group">
+          <label class="score-radio-item"><input type="radio" name="c3-score" value="5" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">5점</span><span class="score-radio-title">매우 우수</span><span class="score-radio-desc">강한 차별성과 우와 포인트 존재</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c3-score" value="4" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">4점</span><span class="score-radio-title">통과</span><span class="score-radio-desc">충분한 고객 경험 제공</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c3-score" value="3" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">3점</span><span class="score-radio-title">논의</span><span class="score-radio-desc">차별성에 대한 논의 필요</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c3-score" value="2" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">2점</span><span class="score-radio-title">보완</span><span class="score-radio-desc">경험 요소 개선 필요</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c3-score" value="1" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">1점</span><span class="score-radio-title">재개발</span><span class="score-radio-desc">경험 가치 재설계 필요</span></div></label>
+        </div>
       </div>
-      <div class="input-group" style="margin-bottom:0">
-        <label class="input-label">판정 (반대 불가)</label>
+      <div class="input-group" style="margin-bottom:14px">
+        <label class="input-label">최종 판정 (반대 불가)</label>
         <div class="verdict-group">
           <button class="verdict-btn" onclick="selectVerdict('c3',this,'출시')">출시</button>
           <button class="verdict-btn" onclick="selectVerdict('c3',this,'보류')">보류</button>
           <button class="verdict-btn disabled" disabled>반대 불가</button>
         </div>
+      </div>
+      <div class="input-group" style="margin-bottom:0">
+        <label class="input-label">의견 작성 (필수)</label>
+        <textarea class="input-field" id="c3-comment" placeholder="경험가치 의견을 작성해주세요" oninput="updateProgress()"></textarea>
       </div>
     </div>
 
@@ -361,72 +394,32 @@ select.input-field{cursor:pointer}
         <div><div class="criteria-title">취향적 의견</div><div class="criteria-sub">개인 선호 · 참고용</div></div>
         <span class="criteria-badge badge-ref">참고만</span>
       </div>
+      <div class="input-group" style="margin-bottom:14px">
+        <div class="score-radio-group">
+          <label class="score-radio-item"><input type="radio" name="c4-score" value="5" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">5점</span><span class="score-radio-title">매우 선호</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c4-score" value="4" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">4점</span><span class="score-radio-title">선호</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c4-score" value="3" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">3점</span><span class="score-radio-title">보통</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c4-score" value="2" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">2점</span><span class="score-radio-title">아쉬움</span></div></label>
+          <label class="score-radio-item"><input type="radio" name="c4-score" value="1" onchange="updateProgress()"><div class="score-radio-box"><span class="score-radio-num">1점</span><span class="score-radio-title">비선호</span></div></label>
+        </div>
+      </div>
       <div class="input-group" style="margin-bottom:0">
-        <label class="input-label">의견</label>
+        <label class="input-label">의견 작성</label>
         <textarea class="input-field" id="c4-comment" placeholder="개인적인 취향 의견을 자유롭게 작성해주세요" oninput="updateProgress()"></textarea>
       </div>
     </div>
 
-    <!-- 세부 점수 -->
+    <!-- 5. 세부 점수 -->
     <div class="criteria-card">
       <div class="criteria-header">
         <div class="criteria-num">5</div>
-        <div><div class="criteria-title">세부 점수</div><div class="criteria-sub">항목별 1~5점 평가</div></div>
+        <div><div class="criteria-title">세부 점수</div><div class="criteria-sub">항목별 1~5점</div></div>
       </div>
-      <div id="detail-scores">
-        <div class="score-slider-row"><span class="score-slider-label">맛</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-taste" oninput="updateSlider(this,'ds-taste-val')"><span class="score-slider-val" id="ds-taste-val">3</span></div>
-        <div class="score-slider-row"><span class="score-slider-label">향</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-aroma" oninput="updateSlider(this,'ds-aroma-val')"><span class="score-slider-val" id="ds-aroma-val">3</span></div>
-        <div class="score-slider-row"><span class="score-slider-label">질감</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-texture" oninput="updateSlider(this,'ds-texture-val')"><span class="score-slider-val" id="ds-texture-val">3</span></div>
-        <div class="score-slider-row"><span class="score-slider-label">단맛</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-sweet" oninput="updateSlider(this,'ds-sweet-val')"><span class="score-slider-val" id="ds-sweet-val">3</span></div>
-        <div class="score-slider-row"><span class="score-slider-label">산미</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-acid" oninput="updateSlider(this,'ds-acid-val')"><span class="score-slider-val" id="ds-acid-val">3</span></div>
-        <div class="score-slider-row"><span class="score-slider-label">재현성</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-repro" oninput="updateSlider(this,'ds-repro-val')"><span class="score-slider-val" id="ds-repro-val">3</span></div>
-        <div class="score-slider-row"><span class="score-slider-label">가격적합</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-price" oninput="updateSlider(this,'ds-price-val')"><span class="score-slider-val" id="ds-price-val">3</span></div>
-        <div class="score-slider-row"><span class="score-slider-label">운영난이도</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-ops" oninput="updateSlider(this,'ds-ops-val')"><span class="score-slider-val" id="ds-ops-val">3</span></div>
-        <div class="score-slider-row"><span class="score-slider-label">브랜드적합</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-brand" oninput="updateSlider(this,'ds-brand-val')"><span class="score-slider-val" id="ds-brand-val">3</span></div>
-      </div>
-    </div>
-
-    <!-- 운영 정보 -->
-    <div class="criteria-card">
-      <div class="criteria-header">
-        <div class="criteria-num">6</div>
-        <div><div class="criteria-title">운영 평가</div><div class="criteria-sub">매장 적용 관점</div></div>
-      </div>
-      <div class="input-group">
-        <label class="input-label">제조 난이도</label>
-        <div class="verdict-group">
-          <button class="verdict-btn" onclick="selectChipVerdict('mfg-diff',this,'쉬움')">쉬움</button>
-          <button class="verdict-btn" onclick="selectChipVerdict('mfg-diff',this,'보통')">보통</button>
-          <button class="verdict-btn" onclick="selectChipVerdict('mfg-diff',this,'어려움')">어려움</button>
-        </div>
-      </div>
-      <div class="input-group">
-        <label class="input-label">제공 속도</label>
-        <div class="verdict-group">
-          <button class="verdict-btn" onclick="selectChipVerdict('serve-speed',this,'빠름')">빠름</button>
-          <button class="verdict-btn" onclick="selectChipVerdict('serve-speed',this,'보통')">보통</button>
-          <button class="verdict-btn" onclick="selectChipVerdict('serve-speed',this,'느림')">느림</button>
-        </div>
-      </div>
-      <div class="input-group">
-        <label class="input-label">원가 부담</label>
-        <div class="verdict-group">
-          <button class="verdict-btn" onclick="selectChipVerdict('cost-burden',this,'낮음')">낮음</button>
-          <button class="verdict-btn" onclick="selectChipVerdict('cost-burden',this,'보통')">보통</button>
-          <button class="verdict-btn" onclick="selectChipVerdict('cost-burden',this,'높음')">높음</button>
-        </div>
-      </div>
-      <div class="input-group" style="margin-bottom:0">
-        <label class="input-label">출시 권장 매장</label>
-        <div class="check-group" id="outlet-group">
-          <button class="check-chip" onclick="toggleChip(this)">전 매장</button>
-          <button class="check-chip" onclick="toggleChip(this)">본점</button>
-          <button class="check-chip" onclick="toggleChip(this)">영도</button>
-          <button class="check-chip" onclick="toggleChip(this)">마린시티</button>
-          <button class="check-chip" onclick="toggleChip(this)">도모헌</button>
-          <button class="check-chip" onclick="toggleChip(this)">테스트 매장</button>
-        </div>
-      </div>
+      <div class="score-slider-row"><span class="score-slider-label">맛</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-taste" oninput="updateSlider(this,'ds-taste-val')"><span class="score-slider-val" id="ds-taste-val">3</span></div>
+      <div class="score-slider-row"><span class="score-slider-label">향</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-aroma" oninput="updateSlider(this,'ds-aroma-val')"><span class="score-slider-val" id="ds-aroma-val">3</span></div>
+      <div class="score-slider-row"><span class="score-slider-label">질감</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-texture" oninput="updateSlider(this,'ds-texture-val')"><span class="score-slider-val" id="ds-texture-val">3</span></div>
+      <div class="score-slider-row"><span class="score-slider-label">당도</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-sweet" oninput="updateSlider(this,'ds-sweet-val')"><span class="score-slider-val" id="ds-sweet-val">3</span></div>
+      <div class="score-slider-row"><span class="score-slider-label">산미</span><input type="range" class="score-slider" min="1" max="5" step="0.5" value="3" id="ds-acid" oninput="updateSlider(this,'ds-acid-val')"><span class="score-slider-val" id="ds-acid-val">3</span></div>
     </div>
 
     <!-- 최종 -->
@@ -454,27 +447,18 @@ select.input-field{cursor:pointer}
           <button class="check-chip" onclick="toggleChip(this)">설명방식</button>
         </div>
       </div>
-      <div class="input-group" style="margin-bottom:14px">
+      <div class="input-group" style="margin-bottom:0">
         <label class="input-label">개선 필요 항목</label>
         <textarea class="input-field" id="improvement" placeholder="개선이 필요하다고 생각하는 항목" style="min-height:68px" oninput="updateProgress()"></textarea>
       </div>
-      <div class="input-group" style="margin-bottom:0">
-        <label class="input-label">고객 반응 예상</label>
-        <div class="verdict-group">
-          <button class="verdict-btn" onclick="selectChipVerdict('cust-react',this,'긍정적')">긍정적</button>
-          <button class="verdict-btn" onclick="selectChipVerdict('cust-react',this,'보통')">보통</button>
-          <button class="verdict-btn" onclick="selectChipVerdict('cust-react',this,'부정적')">부정적</button>
-        </div>
-      </div>
     </div>
-
     <button class="btn btn-primary" onclick="submitEval()">평가 제출</button>
     <p class="submit-note">Google Sheets에 직접 저장됩니다<br>Sheets 미연동 시 로컬 임시 저장</p>
     <div style="height:20px"></div>
   </div>
 </div>
 
-<!-- ── VIEW 5: 대시보드 ── -->
+<!-- VIEW 5: 대시보드 -->
 <div id="view-dashboard" class="view">
   <div class="top-bar">
     <button class="back-btn" onclick="showView('view-home')">← 뒤로</button>
@@ -490,14 +474,14 @@ select.input-field{cursor:pointer}
     <div id="dashboard-content"><div style="text-align:center;padding:36px 0;color:var(--text-sub);font-size:13px">품평을 선택하면 집계 결과가 표시됩니다</div></div>
   </div>
   <nav class="bottom-nav">
-    <button class="nav-tab" onclick="showView('view-home')"><span class="nav-icon">&#8857;</span><span class="nav-lbl">홈</span></button>
+    <button class="nav-tab" onclick="showView('view-home')"><span class="nav-icon">&#9679;</span><span class="nav-lbl">홈</span></button>
     <button class="nav-tab" onclick="showView('view-eval-select')"><span class="nav-icon">&#9998;</span><span class="nav-lbl">평가</span></button>
     <button class="nav-tab active" onclick="showView('view-dashboard')"><span class="nav-icon">&#9636;</span><span class="nav-lbl">집계</span></button>
     <button class="nav-tab" onclick="showView('view-settings')"><span class="nav-icon">&#9881;</span><span class="nav-lbl">설정</span></button>
   </nav>
 </div>
 
-<!-- ── VIEW 6: AI 리포트 ── -->
+<!-- VIEW 6: AI 리포트 -->
 <div id="view-report" class="view">
   <div class="top-bar">
     <button class="back-btn" onclick="showView('view-dashboard')">← 뒤로</button>
@@ -510,7 +494,7 @@ select.input-field{cursor:pointer}
   </div>
 </div>
 
-<!-- ── VIEW 7: 설정 ── -->
+<!-- VIEW 7: 설정 -->
 <div id="view-settings" class="view">
   <div class="top-bar">
     <button class="back-btn" onclick="showView('view-home')">← 뒤로</button>
@@ -520,21 +504,15 @@ select.input-field{cursor:pointer}
   <div class="container">
     <div class="page-title">설정</div>
     <p class="page-sub">Google Sheets 연동 및 시스템 설정</p>
-
     <div class="section-label" style="margin-bottom:12px">Google Sheets 연동 (핵심 저장소)</div>
     <div class="card" style="border-color:var(--border-strong)">
       <div style="background:var(--orange-dim);border:1px solid var(--orange);border-radius:var(--radius-xs);padding:10px 13px;margin-bottom:14px;font-size:12px;color:var(--orange);font-weight:600">
         Sheets 미연동 시 데이터는 이 기기에만 저장됩니다. 반드시 연동해주세요.
       </div>
-      <p style="font-size:12px;color:var(--text-sub);line-height:1.7;margin-bottom:12px">
-        Apps Script Web App URL 입력 시 평가 제출 → Sheets 자동 저장<br>
-        AI 리포트도 Apps Script를 통해 안전하게 실행됩니다
-      </p>
       <input type="url" class="gs-url-input" id="gs-url-input" placeholder="https://script.google.com/macros/s/..."/>
       <button class="btn btn-primary" onclick="saveGsUrl()" style="margin-bottom:8px">URL 저장</button>
       <button class="btn btn-secondary" onclick="testGsConnection()" style="font-size:12px;padding:10px">연결 테스트</button>
     </div>
-
     <div class="section-label" style="margin-top:24px;margin-bottom:12px">생성된 스프레드시트</div>
     <div class="card card-blue">
       <div style="display:flex;align-items:center;gap:12px">
@@ -543,15 +521,13 @@ select.input-field{cursor:pointer}
         <a href="https://docs.google.com/spreadsheets/d/1o9wZ52DFH1ZUbedqCDPJ36xNuQGkGwF7dAXqa1XVrhQ/edit" target="_blank" style="background:var(--blue);color:#fff;font-size:11px;font-weight:700;padding:8px 13px;border-radius:7px;text-decoration:none;white-space:nowrap;flex-shrink:0">열기</a>
       </div>
     </div>
-
     <div class="section-label" style="margin-top:24px;margin-bottom:12px">Apps Script 설정 가이드</div>
     <div class="card" style="font-size:12px;color:var(--text-sub);line-height:1.8">
       <p><strong style="color:var(--blue)">① 위 시트 열기</strong> → 확장 프로그램 → Apps Script</p>
-      <p><strong style="color:var(--blue)">②</strong> 아래 코드 붙여넣기 후 <strong style="color:var(--text)">배포 → 새 배포 → 웹 앱</strong></p>
-      <p><strong style="color:var(--blue)">③</strong> 액세스 권한: <strong style="color:var(--text)">모든 사용자</strong> → URL 복사 후 위에 입력</p>
-      <p style="margin-top:8px;color:var(--blue);font-weight:600">AI 리포트도 이 Apps Script를 통해 실행됩니다 (API 키 노출 없음)</p>
+      <p><strong style="color:var(--blue)">②</strong> 아래 코드 붙여넣기 후 <strong style="color:var(--text)">배포 → 새 배포 → 웹 앱 → 모든 사용자</strong></p>
+      <p><strong style="color:var(--blue)">③</strong> URL 복사 → 위 입력란에 붙여넣기</p>
       <div style="margin-top:12px;background:#f0f7f1;border:1px solid #c8e0cc;border-radius:8px;padding:12px;font-family:monospace;font-size:10px;color:#2a6e38;overflow-x:auto;line-height:1.7">
-const CLAUDE_API_KEY = 'YOUR_API_KEY_HERE'; // 서버에만 저장<br><br>
+        const CLAUDE_API_KEY = 'YOUR_API_KEY_HERE';<br><br>
 function doPost(e) {<br>
 &nbsp;&nbsp;var data = JSON.parse(e.postData.contents);<br>
 &nbsp;&nbsp;if (data.action === 'ai_report') return handleAiReport(data);<br>
@@ -561,18 +537,18 @@ function handleEvalSave(data) {<br>
 &nbsp;&nbsp;var ss = SpreadsheetApp.getActiveSpreadsheet();<br>
 &nbsp;&nbsp;var sheet = ss.getSheetByName(data.sessionName) || ss.insertSheet(data.sessionName);<br>
 &nbsp;&nbsp;if (sheet.getLastRow()===0) sheet.appendRow(['제출시간','평가자','제품명','제품유형',<br>
-&nbsp;&nbsp;&nbsp;&nbsp;'기술의견','기술판정','브랜드의견','브랜드판정','경험의견','경험판정','취향의견',<br>
-&nbsp;&nbsp;&nbsp;&nbsp;'맛','향','질감','단맛','산미','재현성','가격적합','운영난이도','브랜드적합',<br>
-&nbsp;&nbsp;&nbsp;&nbsp;'제조난이도','제공속도','원가부담','출시권장매장','최종결정',<br>
-&nbsp;&nbsp;&nbsp;&nbsp;'보류반대사유','개선우선순위','개선필요','고객반응예상']);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'기술의견','기술점수','기술판정','브랜드의견','브랜드점수','브랜드판정',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'경험의견','경험점수','경험판정','취향의견','취향점수',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'맛','향','질감','당도','산미',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'최종결정','보류반대사유','개선우선순위','개선필요']);<br>
 &nbsp;&nbsp;sheet.appendRow([new Date(), data.evaluator, data.productName, data.productType,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;data.c1Comment, data.c1Verdict, data.c2Comment, data.c2Verdict,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;data.c3Comment, data.c3Verdict, data.c4Comment,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data.c1Comment, data.c1_score, data.c1Verdict,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data.c2Comment, data.c2_score, data.c2Verdict,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data.c3Comment, data.c3_score, data.c3Verdict,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data.c4Comment, data.c4_score,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;data.ds_taste, data.ds_aroma, data.ds_texture, data.ds_sweet, data.ds_acid,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;data.ds_repro, data.ds_price, data.ds_ops, data.ds_brand,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;data.mfgDiff, data.serveSpeed, data.costBurden, data.outlets.join(','),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;data.finalVerdict, data.holdReason, data.improvePriority.join(','),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;data.improvement, data.custReact]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data.finalVerdict, data.holdReason,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(data.improvePriority||[]).join(','), data.improvement]);<br>
 &nbsp;&nbsp;return ok();<br>
 }<br><br>
 function handleAiReport(data) {<br>
@@ -590,7 +566,6 @@ function ok() {<br>
 }
       </div>
     </div>
-
     <div class="divider"></div>
     <div class="card">
       <div class="settings-item">
@@ -604,152 +579,122 @@ function ok() {<br>
     </div>
   </div>
   <nav class="bottom-nav">
-    <button class="nav-tab" onclick="showView('view-home')"><span class="nav-icon">&#8857;</span><span class="nav-lbl">홈</span></button>
+    <button class="nav-tab" onclick="showView('view-home')"><span class="nav-icon">&#9679;</span><span class="nav-lbl">홈</span></button>
     <button class="nav-tab" onclick="showView('view-eval-select')"><span class="nav-icon">&#9998;</span><span class="nav-lbl">평가</span></button>
     <button class="nav-tab" onclick="showView('view-dashboard')"><span class="nav-icon">&#9636;</span><span class="nav-lbl">집계</span></button>
     <button class="nav-tab active" onclick="showView('view-settings')"><span class="nav-icon">&#9881;</span><span class="nav-lbl">설정</span></button>
   </nav>
 </div>
 
-<div class="toast" id="toast"></div>
+<div id="toast" class="toast"></div>
 
 <script>
-// ── STATE ──
 let state = {
-  sessions: [], evaluations: [], currentSessionId: null, gsUrl: '',
-  verdicts: {c1:null,c2:null,c3:null,final:null},
-  chipVerdicts: {},
-  fastTrack: false
+  sessions:[], evaluations:[], currentSessionId:null, gsUrl:'',
+  verdicts:{c1:null,c2:null,c3:null,final:null}, fastTrack:false
 };
-
-function loadState() {
-  try {
-    const s = localStorage.getItem('momos_eval_v3');
-    if (s) { const p=JSON.parse(s); state.sessions=p.sessions||[]; state.evaluations=p.evaluations||[]; state.gsUrl=p.gsUrl||''; }
-  } catch(e) {}
-}
-function saveState() {
-  try { localStorage.setItem('momos_eval_v3', JSON.stringify({sessions:state.sessions,evaluations:state.evaluations,gsUrl:state.gsUrl})); } catch(e) {}
-}
-
-// ── NAV ──
-function showView(id) {
+function loadState(){try{const s=localStorage.getItem('momos_eval_v3');if(s){const p=JSON.parse(s);state.sessions=p.sessions||[];state.evaluations=p.evaluations||[];state.gsUrl=p.gsUrl||'';}}catch(e){}}
+function saveState(){try{localStorage.setItem('momos_eval_v3',JSON.stringify({sessions:state.sessions,evaluations:state.evaluations,gsUrl:state.gsUrl}));}catch(e){}}
+function showView(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
   if(id==='view-eval-select') renderEvalSessionList();
-  if(id==='view-dashboard') { populateDashSelect(); loadDashboard(); }
-  if(id==='view-settings') { const u=document.getElementById('gs-url-input'); if(u) u.value=state.gsUrl||''; }
+  if(id==='view-dashboard'){populateDashSelect();loadDashboard();}
+  if(id==='view-settings'){const u=document.getElementById('gs-url-input');if(u)u.value=state.gsUrl||'';}
 }
-function checkUrlParams() {
-  const sid = new URLSearchParams(window.location.search).get('session');
-  if(sid && state.sessions.find(s=>s.id===sid)) openEvalForm(sid);
-}
-
-// ── UTILS ──
-function generateId() { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
-function selectChip(btn, groupKey) {
-  btn.closest('.check-group').querySelectorAll('.check-chip').forEach(b=>b.classList.remove('selected'));
-  btn.classList.add('selected');
-}
-function toggleChip(btn) { btn.classList.toggle('selected'); }
-function selectChipVerdict(key, btn, val) {
-  btn.closest('.verdict-group').querySelectorAll('.verdict-btn').forEach(b=>b.className=b.className.replace(/selected-\S+/g,'').trim());
-  btn.classList.add('selected-보류');
-  state.chipVerdicts[key] = val;
-}
-function updateSlider(el, valId) { document.getElementById(valId).textContent = el.value; updateProgress(); }
-
-// ── SESSION ──
-let fastTrackSelected = false;
-function selectFastTrack(val) {
+function checkUrlParams(){const sid=new URLSearchParams(window.location.search).get('session');if(sid&&state.sessions.find(s=>s.id===sid))openEvalForm(sid);}
+function generateId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function selectChip(btn){btn.closest('.check-group').querySelectorAll('.check-chip').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');}
+function toggleChip(btn){btn.classList.toggle('selected');}
+function updateSlider(el,valId){document.getElementById(valId).textContent=el.value;}
+let fastTrackSelected=false;
+function selectFastTrack(val){
   fastTrackSelected=val;
   document.getElementById('ft-no').className=document.getElementById('ft-no').className.replace(/selected-\S+/g,'').trim();
   document.getElementById('ft-yes').className=document.getElementById('ft-yes').className.replace(/selected-\S+/g,'').trim();
   document.getElementById(val?'ft-yes':'ft-no').classList.add('selected-출시');
 }
-function createSession() {
-  const name = document.getElementById('new-product-name').value.trim();
-  if(!name) { showToast('제품명을 입력해주세요'); return; }
-  const typeBtn = document.querySelector('#product-type-group .check-chip.selected');
-  const session = {
-    id: generateId(), productName: name,
-    productType: typeBtn ? typeBtn.textContent : '',
-    purpose: document.getElementById('new-purpose').value.trim(),
-    price: document.getElementById('new-price').value.trim(),
-    developer: document.getElementById('new-developer').value.trim(),
-    fastTrack: fastTrackSelected,
-    createdAt: new Date().toISOString(), status: 'active'
+function createSession(){
+  const name=document.getElementById('new-product-name').value.trim();
+  if(!name){showToast('제품명을 입력해주세요');return;}
+  const typeBtn=document.querySelector('#product-type-group .check-chip.selected');
+  const session={
+    id:generateId(),productName:name,
+    productType:typeBtn?typeBtn.textContent:'',
+    purpose:document.getElementById('new-purpose').value.trim(),
+    price:document.getElementById('new-price').value.trim(),
+    developer:document.getElementById('new-developer').value.trim(),
+    fastTrack:fastTrackSelected,createdAt:new Date().toISOString(),status:'active'
   };
-  state.sessions.unshift(session);
-  saveState();
-  const url = window.location.href.split('?')[0]+'?session='+session.id;
+  state.sessions.unshift(session);saveState();
+  const url=window.location.href.split('?')[0]+'?session='+session.id;
   navigator.clipboard.writeText(url).then(()=>showToast('세션 생성! 링크가 복사됐습니다')).catch(()=>showToast('세션이 생성됐습니다'));
-  ['new-product-name','new-purpose','new-price','new-developer'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['new-product-name','new-purpose','new-price','new-developer'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';} );
+  document.querySelectorAll('#product-type-group .check-chip').forEach(b=>b.classList.remove('selected'));
+  fastTrackSelected=false;
+  document.getElementById('ft-no').className=document.getElementById('ft-no').className.replace(/selected-\S+/g,'').trim();
+  document.getElementById('ft-yes').className=document.getElementById('ft-yes').className.replace(/selected-\S+/g,'').trim();
   setTimeout(()=>showView('view-home'),600);
 }
-function renderEvalSessionList() {
+function renderEvalSessionList(){
   const el=document.getElementById('eval-session-list');
   const active=state.sessions.filter(s=>s.status==='active');
-  if(!active.length){ el.innerHTML='<div style="text-align:center;padding:36px 0;color:var(--text-sub);font-size:13px">진행 중인 품평이 없습니다</div>'; return; }
+  if(!active.length){el.innerHTML='<div style="text-align:center;padding:36px 0;color:var(--text-sub);font-size:13px">진행 중인 품평이 없습니다</div>';return;}
   el.innerHTML=active.map(s=>{
     const cnt=state.evaluations.filter(e=>e.sessionId===s.id).length;
     const d=new Date(s.createdAt).toLocaleDateString('ko-KR',{month:'long',day:'numeric'});
-    return '<div class="card" onclick="openEvalForm(\''+s.id+'\')" style="cursor:pointer">'
+    return '<div class="card" onclick=\"openEvalForm(\'"+s.id+"\')\" style="cursor:pointer">'
       +'<div style="display:flex;align-items:center;gap:12px"><div style="flex:1">'
       +'<div style="font-size:15px;font-weight:700;margin-bottom:3px">'+s.productName+(s.productType?' <span style="font-size:11px;color:var(--blue);font-weight:400">'+s.productType+'</span>':'')+'</div>'
-      +'<div style="font-size:11px;color:var(--text-sub)">'+d+' · 현재 '+cnt+'명 평가 완료'+(s.fastTrack?' · 패스트트랙':'')+'</div>'
-      +(s.purpose?'<div style="font-size:11px;color:var(--text-dim);margin-top:4px">'+s.purpose+'</div>':'')
+      +'<div style="font-size:11px;color:var(--text-sub)">'+d+' · '+cnt+'명 평가 완료'+(s.fastTrack?' · 패스트트랙':'')+'</div>'
+      +(s.purpose?'<div style="font-size:11px;color:var(--text-dim);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+s.purpose.slice(0,60)+(s.purpose.length>60?'…':'')+'</div>':'')
       +'</div><span style="color:var(--text-dim);font-size:18px">›</span></div></div>';
   }).join('');
 }
-
-// ── 평가 폼 ──
-function openEvalForm(sid) {
+function openEvalForm(sid){
   state.currentSessionId=sid;
   state.verdicts={c1:null,c2:null,c3:null,final:null};
-  state.chipVerdicts={};
-  const s=state.sessions.find(x=>x.id===sid);
-  if(!s) return;
+  const s=state.sessions.find(x=>x.id===sid);if(!s)return;
   document.getElementById('form-product-name').textContent=s.productName;
   document.getElementById('form-session-date').textContent=new Date(s.createdAt).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
-  ['eval-name','c1-comment','c2-comment','c3-comment','c4-comment','hold-reason','improvement'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['eval-name','c1-comment','c2-comment','c3-comment','c4-comment','hold-reason','improvement'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';} );
   document.querySelectorAll('.verdict-btn').forEach(b=>b.className=b.className.replace(/selected-\S+/g,'').trim());
+  document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
   document.querySelectorAll('.check-chip').forEach(b=>b.classList.remove('selected'));
-  ['ds-taste','ds-aroma','ds-texture','ds-sweet','ds-acid','ds-repro','ds-price','ds-ops','ds-brand'].forEach(id=>{
-    const el=document.getElementById(id); if(el){el.value=3; document.getElementById(id+'-val').textContent=3;}
-  });
-  updateProgress();
-  showView('view-eval-form');
+  ['ds-taste','ds-aroma','ds-texture','ds-sweet','ds-acid'].forEach(id=>{const el=document.getElementById(id);if(el){el.value=3;document.getElementById(id+'-val').textContent=3;}} );
+  updateProgress();showView('view-eval-form');
 }
-function selectVerdict(key,btn,val) {
-  if(btn.classList.contains('disabled')) return;
+function selectVerdict(key,btn,val){
+  if(btn.classList.contains('disabled'))return;
   btn.closest('.verdict-group').querySelectorAll('.verdict-btn').forEach(b=>{if(!b.classList.contains('disabled'))b.className=b.className.replace(/selected-\S+/g,'').trim();});
   btn.classList.add('selected-'+val);
-  state.verdicts[key]=val;
-  updateProgress();
+  state.verdicts[key]=val;updateProgress();
 }
-function updateProgress() {
+function updateProgress(){
+  const c1r=document.querySelector('input[name="c1-score"]:checked');
+  const c2r=document.querySelector('input[name="c2-score"]:checked');
+  const c3r=document.querySelector('input[name="c3-score"]:checked');
   const fields=[
     document.getElementById('eval-name')?.value.trim(),
     document.getElementById('c1-comment')?.value.trim(),
     document.getElementById('c2-comment')?.value.trim(),
-    state.verdicts.c1, state.verdicts.c2, state.verdicts.c3, state.verdicts.final
+    document.getElementById('c3-comment')?.value.trim(),
+    c1r,c2r,c3r,
+    state.verdicts.c1,state.verdicts.c2,state.verdicts.c3,state.verdicts.final
   ];
   const pct=Math.round(fields.filter(Boolean).length/fields.length*100);
-  const bar=document.getElementById('form-progress');
-  if(bar) bar.style.width=pct+'%';
+  const bar=document.getElementById('form-progress');if(bar)bar.style.width=pct+'%';
 }
-function getDetailScores() {
-  const ids=['taste','aroma','texture','sweet','acid','repro','price','ops','brand'];
+function getDetailScores(){
+  const ids=['taste','aroma','texture','sweet','acid'];
   const out={};
-  ids.forEach(id=>{const el=document.getElementById('ds-'+id); if(el) out['ds_'+id]=parseFloat(el.value);});
+  ids.forEach(id=>{const el=document.getElementById('ds-'+id);if(el)out['ds_'+id]=parseFloat(el.value);});
+  ['c1','c2','c3','c4'].forEach(c=>{const r=document.querySelector('input[name="'+c+'-score"]:checked');if(r)out[c+'_score']=parseInt(r.value);});
   return out;
 }
-function getSelectedChips(groupId) {
-  return [...document.querySelectorAll('#'+groupId+' .check-chip.selected')].map(b=>b.textContent);
-}
-async function submitEval() {
+function getSelectedChips(groupId){return[...document.querySelectorAll('#'+groupId+' .check-chip.selected')].map(b=>b.textContent);}
+async function submitEval(){
   const name=document.getElementById('eval-name').value.trim();
   if(!name){showToast('이름을 입력해주세요');return;}
   if(!state.verdicts.c1){showToast('기술적 의견 판정을 선택해주세요');return;}
@@ -758,168 +703,99 @@ async function submitEval() {
   if(!state.verdicts.final){showToast('최종 결정을 선택해주세요');return;}
   const session=state.sessions.find(s=>s.id===state.currentSessionId);
   const evaluation={
-    id:generateId(), sessionId:state.currentSessionId,
-    sessionName:session?.productName||'', productName:session?.productName||'',
+    id:generateId(),sessionId:state.currentSessionId,
+    sessionName:session?.productName||'',productName:session?.productName||'',
     productType:session?.productType||'',
-    evaluator:name, submittedAt:new Date().toISOString(),
-    c1Comment:document.getElementById('c1-comment').value.trim(), c1Verdict:state.verdicts.c1,
-    c2Comment:document.getElementById('c2-comment').value.trim(), c2Verdict:state.verdicts.c2,
-    c3Comment:document.getElementById('c3-comment').value.trim(), c3Verdict:state.verdicts.c3,
+    evaluator:name,submittedAt:new Date().toISOString(),
+    c1Comment:document.getElementById('c1-comment').value.trim(),c1Verdict:state.verdicts.c1,
+    c2Comment:document.getElementById('c2-comment').value.trim(),c2Verdict:state.verdicts.c2,
+    c3Comment:document.getElementById('c3-comment').value.trim(),c3Verdict:state.verdicts.c3,
     c4Comment:document.getElementById('c4-comment').value.trim(),
     ...getDetailScores(),
-    mfgDiff:state.chipVerdicts['mfg-diff']||'',
-    serveSpeed:state.chipVerdicts['serve-speed']||'',
-    costBurden:state.chipVerdicts['cost-burden']||'',
-    custReact:state.chipVerdicts['cust-react']||'',
-    outlets:getSelectedChips('outlet-group'),
     improvePriority:getSelectedChips('improve-priority-group'),
     finalVerdict:state.verdicts.final,
     holdReason:document.getElementById('hold-reason').value.trim(),
     improvement:document.getElementById('improvement').value.trim()
   };
   let sheetsSaved=false;
-  if(state.gsUrl) {
-    try {
-      await fetch(state.gsUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(evaluation)});
-      sheetsSaved=true;
-    } catch(e) {}
-  }
-  state.evaluations.push(evaluation);
-  saveState();
-  showToast(sheetsSaved?'평가 제출 완료 — Sheets 저장됨':'로컬 임시 저장 완료 (Sheets 연동 권장)');
+  if(state.gsUrl){try{await fetch(state.gsUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(evaluation)});sheetsSaved=true;}catch(e){}}
+  state.evaluations.push(evaluation);saveState();
+  showToast(sheetsSaved?'평가 제출 완료 — Sheets 저장됨':'로컬 임시 저장 완료');
   setTimeout(()=>showView('view-home'),700);
 }
-
-// ── 대시보드 ──
-function populateDashSelect(preferSid) {
+function populateDashSelect(preferSid){
   const sel=document.getElementById('dash-session-select');
-  sel.innerHTML='<option value="">— 품평 선택 —</option>'+
-    state.sessions.map(s=>'<option value="'+s.id+'"'+(s.id===preferSid?' selected':'')+'>'+s.productName+(s.status==='closed'?' (종료)':'')+'</option>').join('');
+  sel.innerHTML='<option value="">— 품평 선택 —</option>'+state.sessions.map(s=>'<option value="'+s.id+'"'+(s.id===preferSid?' selected':'')+'>'+s.productName+(s.status==='closed'?' (종료)':'')+'</option>').join('');
 }
-function refreshDashboard() { loadState(); populateDashSelect(); loadDashboard(); showToast('새로고침 완료'); }
-function loadDashboard(forceSid) {
+function refreshDashboard(){loadState();populateDashSelect();loadDashboard();showToast('새로고침 완료');}
+function loadDashboard(forceSid){
   const sel=document.getElementById('dash-session-select');
-  const sid=forceSid||sel.value;
-  if(forceSid) sel.value=forceSid;
+  const sid=forceSid||sel.value;if(forceSid)sel.value=forceSid;
   const content=document.getElementById('dashboard-content');
-  if(!sid){ content.innerHTML='<div style="text-align:center;padding:36px 0;color:var(--text-sub);font-size:13px">품평을 선택하면 집계 결과가 표시됩니다</div>'; return; }
+  if(!sid){content.innerHTML='<div style="text-align:center;padding:36px 0;color:var(--text-sub);font-size:13px">품평을 선택하면 집계 결과가 표시됩니다</div>';return;}
   const session=state.sessions.find(s=>s.id===sid);
   const evals=state.evaluations.filter(e=>e.sessionId===sid);
-  if(!evals.length){ content.innerHTML='<div class="card" style="text-align:center;padding:28px 0"><div style="font-weight:700;margin-bottom:6px">'+(session?.productName||'')+'</div><div style="color:var(--text-sub);font-size:13px">아직 제출된 평가가 없습니다</div></div>'+renderShareLink(sid); return; }
-
+  if(!evals.length){content.innerHTML='<div class="card" style="text-align:center;padding:28px 0"><div style="font-weight:700;margin-bottom:6px">'+(session?.productName||'')+'</div><div style="color:var(--text-sub);font-size:13px">아직 제출된 평가가 없습니다</div></div>'+renderShareLink(sid);return;}
   const passC=evals.filter(e=>e.finalVerdict==='출시').length;
   const holdC=evals.filter(e=>e.finalVerdict==='보류').length;
   const rejC=evals.filter(e=>e.finalVerdict==='반대').length;
   const techRej=evals.filter(e=>e.c1Verdict==='반대').length;
   const brandRej=evals.filter(e=>e.c2Verdict==='반대').length;
   const expHold=evals.filter(e=>e.c3Verdict==='보류').length;
-
-  const dsKeys=['ds_taste','ds_aroma','ds_texture','ds_sweet','ds_acid','ds_repro','ds_price','ds_ops','ds_brand'];
-  const dsLabels={ds_taste:'맛',ds_aroma:'향',ds_texture:'질감',ds_sweet:'단맛',ds_acid:'산미',ds_repro:'재현성',ds_price:'가격적합',ds_ops:'운영난이도',ds_brand:'브랜드적합'};
+  const dsKeys=['ds_taste','ds_aroma','ds_texture','ds_sweet','ds_acid'];
+  const dsLabels={ds_taste:'맛',ds_aroma:'향',ds_texture:'질감',ds_sweet:'당도',ds_acid:'산미'};
   const dsAvgs={};
-  dsKeys.forEach(k=>{
-    const vals=evals.filter(e=>e[k]!==undefined).map(e=>Number(e[k]));
-    dsAvgs[k]=vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1):null;
-  });
-
+  dsKeys.forEach(k=>{const vals=evals.filter(e=>e[k]!==undefined).map(e=>Number(e[k]));dsAvgs[k]=vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1):null;});
   let sysVerdict,sysClass,sysIcon;
   if(techRej+brandRej>=2){sysVerdict='출시 불가';sysClass='blocked';sysIcon='×';}
   else if(techRej+brandRej===1){sysVerdict='개선 후 재평가';sysClass='review';sysIcon='↺';}
   else if(expHold>evals.length/2){sysVerdict='개선 후 출시 가능';sysClass='review';sysIcon='△';}
   else{sysVerdict='출시 가능';sysClass='can-launch';sysIcon='✓';}
-
   let dsBarHtml='';
-  dsKeys.filter(k=>dsAvgs[k]).forEach(k=>{
-    dsBarHtml+='<div class="score-bar-row">'
-      +'<div class="score-bar-label">'+dsLabels[k]+'</div>'
-      +'<div class="score-bar-wrap"><div class="score-bar-fill" style="width:'+(dsAvgs[k]/5*100)+'%"><span class="score-bar-val">'+dsAvgs[k]+'</span></div></div>'
-      +'</div>';
-  });
-
+  dsKeys.filter(k=>dsAvgs[k]).forEach(k=>{dsBarHtml+='<div class="score-bar-row"><div class="score-bar-label">'+dsLabels[k]+'</div><div class="score-bar-wrap"><div class="score-bar-fill" style="width:'+(dsAvgs[k]/5*100)+'%"><span class="score-bar-val">'+dsAvgs[k]+'</span></div></div></div>';});
   let evalListHtml='';
   evals.forEach(e=>{
-    const outletBadge=e.outlets&&e.outlets.length?'<span class="eval-badge" style="background:var(--blue-light);color:var(--blue)">'+e.outlets.join('/')+'</span>':'';
-    evalListHtml+='<div class="eval-list-item">'
-      +'<div class="eval-avatar">'+e.evaluator.charAt(0)+'</div>'
-      +'<div style="flex:1"><div class="eval-name">'+e.evaluator+'</div>'
-      +'<div class="eval-badges">'
-      +'<span class="eval-badge '+(e.c1Verdict==='출시'?'eb-pass':e.c1Verdict==='보류'?'eb-hold':'eb-reject')+'">기술 '+e.c1Verdict+'</span>'
-      +'<span class="eval-badge '+(e.c2Verdict==='출시'?'eb-pass':e.c2Verdict==='보류'?'eb-hold':'eb-reject')+'">브랜드 '+e.c2Verdict+'</span>'
-      +'<span class="eval-badge '+(e.c3Verdict==='출시'?'eb-pass':'eb-hold')+'">경험 '+e.c3Verdict+'</span>'
+    evalListHtml+='<div class="eval-list-item"><div class="eval-avatar">'+e.evaluator.charAt(0)+'</div><div style="flex:1"><div class="eval-name">'+e.evaluator+'</div><div class="eval-badges">'
+      +'<span class="eval-badge '+(e.c1Verdict==='출시'?'eb-pass':e.c1Verdict==='보류'?'eb-hold':'eb-reject')+'">기술 '+e.c1Verdict+(e.c1_score?' ('+e.c1_score+'점)':'')+'</span>'
+      +'<span class="eval-badge '+(e.c2Verdict==='출시'?'eb-pass':e.c2Verdict==='보류'?'eb-hold':'eb-reject')+'">브랜드 '+e.c2Verdict+(e.c2_score?' ('+e.c2_score+'점)':'')+'</span>'
+      +'<span class="eval-badge '+(e.c3Verdict==='출시'?'eb-pass':'eb-hold')+'">경험 '+e.c3Verdict+(e.c3_score?' ('+e.c3_score+'점)':'')+'</span>'
       +'<span class="eval-badge '+(e.finalVerdict==='출시'?'eb-pass':e.finalVerdict==='보류'?'eb-hold':'eb-reject')+'">최종 '+e.finalVerdict+'</span>'
-      +outletBadge
       +'</div></div></div>';
   });
-
   let improveHtml='';
   evals.filter(e=>e.improvement||e.holdReason).forEach(e=>{
-    improveHtml+='<div style="padding:10px 0;border-bottom:1px solid var(--border)">'
-      +'<div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:4px">'+e.evaluator+(e.improvePriority&&e.improvePriority.length?' · '+e.improvePriority.join(', '):'')+'</div>'
-      +(e.improvement?'<div style="font-size:12px;line-height:1.7">'+e.improvement+'</div>':'')
-      +(e.holdReason?'<div style="font-size:11px;color:var(--text-sub);margin-top:4px">보류사유: '+e.holdReason+'</div>':'')
-      +'</div>';
+    improveHtml+='<div style="padding:10px 0;border-bottom:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:4px">'+e.evaluator+(e.improvePriority&&e.improvePriority.length?' · '+e.improvePriority.join(', '):'')+'</div>'+(e.improvement?'<div style="font-size:12px;line-height:1.7">'+e.improvement+'</div>':'')+(e.holdReason?'<div style="font-size:11px;color:var(--text-sub);margin-top:4px">보류사유: '+e.holdReason+'</div>':'')+'</div>';
   });
-
   content.innerHTML=
-    '<div style="font-size:13px;color:var(--text-sub);margin-bottom:14px">'
-    +'<strong style="color:var(--text)">'+(session?.productName||'')+'</strong>'
-    +(session?.productType?'<span style="font-size:11px;color:var(--blue);margin-left:6px">'+session.productType+'</span>':'')
-    +' · 평가 '+evals.length+'명'+(session?.fastTrack?' · 패스트트랙':'')+'</div>'
-    +'<div class="verdict-result '+sysClass+'">'
-    +'<span style="font-size:20px;font-weight:700;width:28px;text-align:center">'+sysIcon+'</span>'
-    +'<div><div class="vr-text">'+sysVerdict+'</div>'
-    +'<div class="vr-sub">기술반대 '+techRej+'건 · 브랜드반대 '+brandRej+'건 · 경험보류 '+expHold+'건</div></div></div>'
-    +'<div class="stat-grid">'
-    +'<div class="stat-box pass"><div class="s-val">'+passC+'</div><div class="s-lbl">출시</div></div>'
-    +'<div class="stat-box hold"><div class="s-val">'+holdC+'</div><div class="s-lbl">보류</div></div>'
-    +'<div class="stat-box reject"><div class="s-val">'+rejC+'</div><div class="s-lbl">반대</div></div>'
-    +'<div class="stat-box score"><div class="s-val" style="font-size:16px">'+evals.length+'</div><div class="s-lbl">참여</div></div>'
-    +'</div>'
+    '<div style="font-size:13px;color:var(--text-sub);margin-bottom:14px"><strong style="color:var(--text)">'+(session?.productName||'')+'</strong>'+(session?.productType?' <span style="font-size:11px;color:var(--blue)">'+session.productType+'</span>':'')+' · 평가 '+evals.length+'명'+(session?.fastTrack?' · 패스트트랙':'')+'</div>'
+    +'<div class="verdict-result '+sysClass+'"><span style="font-size:20px;font-weight:700;width:28px;text-align:center">'+sysIcon+'</span><div><div class="vr-text">'+sysVerdict+'</div><div class="vr-sub">기술반대 '+techRej+'건 · 브랜드반대 '+brandRej+'건 · 경험보류 '+expHold+'건</div></div></div>'
+    +'<div class="stat-grid"><div class="stat-box pass"><div class="s-val">'+passC+'</div><div class="s-lbl">출시</div></div><div class="stat-box hold"><div class="s-val">'+holdC+'</div><div class="s-lbl">보류</div></div><div class="stat-box reject"><div class="s-val">'+rejC+'</div><div class="s-lbl">반대</div></div><div class="stat-box score"><div class="s-val" style="font-size:16px">'+evals.length+'</div><div class="s-lbl">참여</div></div></div>'
     +(dsBarHtml?'<div class="card" style="margin-bottom:14px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text-sub);margin-bottom:14px">세부 점수 평균</div>'+dsBarHtml+'</div>':'')
-    +'<div class="card" style="margin-bottom:14px">'
-    +'<div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text-sub);margin-bottom:14px">평가자별 결과</div>'
-    +evalListHtml+'</div>'
+    +'<div class="card" style="margin-bottom:14px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text-sub);margin-bottom:14px">평가자별 결과</div>'+evalListHtml+'</div>'
     +(improveHtml?'<div class="card" style="margin-bottom:14px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text-sub);margin-bottom:14px">개선 의견</div>'+improveHtml+'</div>':'')
-    +'<div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">'
-    +'<button class="btn btn-primary" onclick="generateAiReport(\''+sid+'\')">AI 개선안 리포트 생성</button>'
-    +(session?.status==='active'?'<button class="btn btn-secondary" onclick="closeSession(\''+sid+'\')">품평 종료 처리</button>':'')
-    +'</div>'
+    +'<div style="display:flex;flex-direction:column;gap:10px;margin-top:4px"><button class="btn btn-primary" onclick="generateAiReport(\'"+sid+"\')">AI 개선안 리포트 생성</button>'+(session?.status==='active'?'<button class="btn btn-secondary" onclick="closeSession(\'"+sid+"\')">품평 종료 처리</button>':'')+'</div>'
     +renderShareLink(sid);
 }
-
-function renderShareLink(sid) {
+function renderShareLink(sid){
   const url=window.location.href.split('?')[0]+'?session='+sid;
-  return '<div style="margin-top:14px"><div style="font-size:10px;color:var(--text-sub);letter-spacing:1px;margin-bottom:8px">평가 참여 링크</div>'
-    +'<div class="share-url-box" onclick="copyLink(\''+url+'\')"><span class="url-text">'+url+'</span><span style="color:var(--text-sub);font-size:14px">⎘</span></div></div>';
+  return '<div style="margin-top:14px"><div style="font-size:10px;color:var(--text-sub);letter-spacing:1px;margin-bottom:8px">평가 참여 링크</div><div class="share-url-box" onclick="copyLink(\'"+url+"\')"><span class="url-text">'+url+'</span><span style="color:var(--text-sub);font-size:14px">⎘</span></div></div>';
 }
-function copyLink(url){ navigator.clipboard.writeText(url).then(()=>showToast('링크 복사됨')); }
-function closeSession(sid){ const s=state.sessions.find(x=>x.id===sid); if(s){s.status='closed';saveState();loadDashboard(sid);showToast('품평 종료 처리됐습니다');} }
-
-// ── AI 리포트 ──
-async function generateAiReport(sid) {
-  if(!state.gsUrl){ showToast('AI 리포트는 Apps Script 연동 후 사용 가능합니다'); showView('view-settings'); return; }
+function copyLink(url){navigator.clipboard.writeText(url).then(()=>showToast('링크 복사됨'));}
+function closeSession(sid){const s=state.sessions.find(x=>x.id===sid);if(s){s.status='closed';saveState();loadDashboard(sid);showToast('품평 종료 처리됐습니다');}}
+async function generateAiReport(sid){
+  if(!state.gsUrl){showToast('AI 리포트는 Apps Script 연동 후 사용 가능합니다');showView('view-settings');return;}
   showView('view-report');
   document.getElementById('ai-loading').style.display='block';
   document.getElementById('report-content').style.display='none';
-
   const session=state.sessions.find(s=>s.id===sid);
   const evals=state.evaluations.filter(e=>e.sessionId===sid);
   const techRej=evals.filter(e=>e.c1Verdict==='반대').length;
   const brandRej=evals.filter(e=>e.c2Verdict==='반대').length;
   const expHold=evals.filter(e=>e.c3Verdict==='보류').length;
-
-  const evalSummary=evals.map(e=>
-    '['+e.evaluator+'] 기술('+e.c1Verdict+'):'+e.c1Comment+' | 브랜드('+e.c2Verdict+'):'+e.c2Comment+' | 경험('+e.c3Verdict+'):'+e.c3Comment+' | 취향:'+e.c4Comment+' | 최종:'+e.finalVerdict+' | 개선:'+(e.improvement||'없음')+' | 출시권장:'+(e.outlets?.join(',')||'')+' | 우선순위:'+(e.improvePriority?.join(',')||'')
-  ).join('\n');
-
-  const dsKeys=['ds_taste','ds_aroma','ds_texture','ds_sweet','ds_acid','ds_repro','ds_price','ds_ops','ds_brand'];
-  const dsLabels={ds_taste:'맛',ds_aroma:'향',ds_texture:'질감',ds_sweet:'단맛',ds_acid:'산미',ds_repro:'재현성',ds_price:'가격적합',ds_ops:'운영난이도',ds_brand:'브랜드적합'};
-  const dsAvgStr=dsKeys.map(k=>{
-    const vals=evals.filter(e=>e[k]!==undefined).map(e=>Number(e[k]));
-    const avg=vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1):'N/A';
-    return dsLabels[k]+':'+avg;
-  }).join(', ');
-
+  const evalSummary=evals.map(e=>'['+e.evaluator+'] 기술('+e.c1Verdict+','+( e.c1_score||'-')+'점):'+e.c1Comment+' | 브랜드('+e.c2Verdict+','+(e.c2_score||'-')+'점):'+e.c2Comment+' | 경험('+e.c3Verdict+','+(e.c3_score||'-')+'점):'+e.c3Comment+' | 취향:'+e.c4Comment+' | 최종:'+e.finalVerdict+' | 개선:'+(e.improvement||'없음')).join('\n');
+  const dsKeys=['ds_taste','ds_aroma','ds_texture','ds_sweet','ds_acid'];
+  const dsLabels={ds_taste:'맛',ds_aroma:'향',ds_texture:'질감',ds_sweet:'당도',ds_acid:'산미'};
+  const dsAvgStr=dsKeys.map(k=>{const vals=evals.filter(e=>e[k]!==undefined).map(e=>Number(e[k]));const avg=vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1):'N/A';return dsLabels[k]+':'+avg;}).join(', ');
   const prompt='당신은 스페셜티 커피 브랜드 모모스(Momos Coffee)의 신제품 품평 분석가입니다.\n\n'
     +'제품명: '+(session?.productName||'')+' ('+(session?.productType||'유형미기재')+')\n'
     +'개발자: '+(session?.developer||'미기재')+' / 판매예상가: '+(session?.price||'미기재')+'\n'
@@ -933,89 +809,49 @@ async function generateAiReport(sid) {
     +'**4. 중장기 개선 방향** (2개)\n\n'
     +'**5. 출시 결정 권고** (매뉴얼 기준 적용)\n\n'
     +'**6. 개발자에게** (1~2문장)';
-
-  try {
-    const res=await fetch(state.gsUrl,{
-      method:'POST', mode:'cors',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'ai_report',prompt,sessionId:sid})
-    });
+  try{
+    const res=await fetch(state.gsUrl,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'ai_report',prompt,sessionId:sid})});
     const data=await res.json();
     renderReport(session,evals,data.text||'리포트 생성 실패',dsAvgStr);
-  } catch(e) {
+  }catch(e){
     renderReport(session,evals,'Apps Script 연동 후 AI 분석이 가능합니다.\n\n현재 집계:\n기술반대 '+techRej+'건, 브랜드반대 '+brandRej+'건\n세부점수: '+dsAvgStr,dsAvgStr);
   }
 }
-
-function renderReport(session,evals,aiText,dsAvgStr) {
+function renderReport(session,evals,aiText,dsAvgStr){
   document.getElementById('ai-loading').style.display='none';
-  const content=document.getElementById('report-content');
-  content.style.display='block';
+  const content=document.getElementById('report-content');content.style.display='block';
   const passC=evals.filter(e=>e.finalVerdict==='출시').length;
   const holdC=evals.filter(e=>e.finalVerdict==='보류').length;
   const rejC=evals.filter(e=>e.finalVerdict==='반대').length;
   const allComments=evals.map(e=>[e.c1Comment,e.c2Comment,e.c3Comment,e.c4Comment,e.improvement].join(' ')).join(' ');
   const posWords=['좋','맛있','신선','차별','훌륭','깔끔','균형','조화','여름','시원','상큼'];
   const negWords=['달','아쉬','기름','약하','부족','개선','흘러','녹','온도','재현','어렵'];
-  const neuWords=['참외','크림','무스','텍스처','향','쿠키','베이스'];
+  const neuWords=['참외','크림','무스','텍스처','향','쿠키','베이스','폼','초콜릿'];
   const fp=posWords.filter(w=>allComments.includes(w)).slice(0,4);
   const fn=negWords.filter(w=>allComments.includes(w)).slice(0,4);
   const fn2=neuWords.filter(w=>allComments.includes(w)).slice(0,3);
-
-  let tagHtml=fp.map(w=>'<span class="tag pos">+ '+w+'</span>').join('')
-    +fn.map(w=>'<span class="tag neg">- '+w+'</span>').join('')
-    +fn2.map(w=>'<span class="tag neu">'+w+'</span>').join('');
-
+  let tagHtml=fp.map(w=>'<span class="tag pos">+ '+w+'</span>').join('')+fn.map(w=>'<span class="tag neg">- '+w+'</span>').join('')+fn2.map(w=>'<span class="tag neu">'+w+'</span>').join('');
   let improveHtml='';
-  evals.filter(e=>e.improvement||e.holdReason).forEach(e=>{
-    improveHtml+='<div style="padding:11px;background:var(--surface2);border-radius:10px;margin-bottom:8px">'
-      +'<div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:5px">'+e.evaluator+' · '+e.finalVerdict+(e.improvePriority&&e.improvePriority.length?' · '+e.improvePriority.join(', '):'')+'</div>'
-      +(e.improvement?'<div style="font-size:12px;line-height:1.7">'+e.improvement+'</div>':'')
-      +(e.holdReason?'<div style="font-size:11px;color:var(--text-sub);margin-top:4px">보류사유: '+e.holdReason+'</div>':'')
-      +'</div>';
-  });
-
+  evals.filter(e=>e.improvement||e.holdReason).forEach(e=>{improveHtml+='<div style="padding:11px;background:var(--surface2);border-radius:10px;margin-bottom:8px"><div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:5px">'+e.evaluator+' · '+e.finalVerdict+(e.improvePriority&&e.improvePriority.length?' · '+e.improvePriority.join(', '):'')+'</div>'+(e.improvement?'<div style="font-size:12px;line-height:1.7">'+e.improvement+'</div>':'')+(e.holdReason?'<div style="font-size:11px;color:var(--text-sub);margin-top:4px">보류사유: '+e.holdReason+'</div>':'')+'</div>';});
   const formattedAi=aiText.replace(/\*\*(.*?)\*\*/g,'<strong style="color:var(--blue)">$1</strong>').replace(/\n/g,'<br>');
-
   content.innerHTML=
-    '<div style="margin-bottom:22px">'
-    +'<div style="font-size:11px;color:var(--text-sub);margin-bottom:4px">'+new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'})+'</div>'
-    +'<div style="font-size:20px;font-weight:700;margin-bottom:4px">'+(session?.productName||'')+'</div>'
-    +'<div style="font-size:12px;color:var(--text-sub)">평가자 '+evals.length+'명 · 출시 '+passC+' / 보류 '+holdC+' / 반대 '+rejC+'</div>'
-    +'</div>'
+    '<div style="margin-bottom:22px"><div style="font-size:11px;color:var(--text-sub);margin-bottom:4px">'+new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'})+'</div><div style="font-size:20px;font-weight:700;margin-bottom:4px">'+(session?.productName||'')+'</div><div style="font-size:12px;color:var(--text-sub)">평가자 '+evals.length+'명 · 출시 '+passC+' / 보류 '+holdC+' / 반대 '+rejC+'</div></div>'
     +'<div class="report-section"><div class="report-section-title">주요 키워드</div><div class="tag-cloud">'+tagHtml+'</div></div>'
     +'<div class="report-section"><div class="report-section-title">AI 분석 및 개선안</div><div class="report-text">'+formattedAi+'</div></div>'
     +(improveHtml?'<div class="report-section"><div class="report-section-title">전체 개선 의견</div>'+improveHtml+'</div>':'')
-    +'<button class="btn btn-secondary" onclick="window.print()" style="margin-top:8px">리포트 인쇄 / PDF</button>'
-    +'<div style="height:20px"></div>';
+    +'<button class="btn btn-secondary" onclick="window.print()" style="margin-top:8px">리포트 인쇄 / PDF</button><div style="height:20px"></div>';
 }
-
-// ── 설정 ──
-function saveGsUrl(){ const u=document.getElementById('gs-url-input').value.trim(); state.gsUrl=u; saveState(); showToast(u?'Sheets URL 저장됨':'URL 제거됨'); }
+function saveGsUrl(){const u=document.getElementById('gs-url-input').value.trim();state.gsUrl=u;saveState();showToast(u?'Sheets URL 저장됨':'URL 제거됨');}
 async function testGsConnection(){
   if(!state.gsUrl){showToast('먼저 URL을 저장해주세요');return;}
   showToast('연결 테스트 중...');
-  try{
-    await fetch(state.gsUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({test:true})});
-    showToast('연결 성공');
-  }catch(e){showToast('연결 실패 — URL을 확인해주세요');}
+  try{await fetch(state.gsUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({test:true})});showToast('연결 성공');}catch(e){showToast('연결 실패 — URL을 확인해주세요');}
 }
-function exportData(){
-  const blob=new Blob([JSON.stringify({sessions:state.sessions,evaluations:state.evaluations},null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='momos_eval_'+new Date().toISOString().slice(0,10)+'.json';a.click();
-  showToast('내보내기 완료');
-}
-function clearData(){ if(!confirm('로컬 데이터를 모두 삭제합니까?'))return; localStorage.removeItem('momos_eval_v3'); state.sessions=[]; state.evaluations=[]; showToast('초기화 완료'); }
-
-// ── TOAST ──
+function exportData(){const blob=new Blob([JSON.stringify({sessions:state.sessions,evaluations:state.evaluations},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='momos_eval_'+new Date().toISOString().slice(0,10)+'.json';a.click();showToast('내보내기 완료');}
+function clearData(){if(!confirm('로컬 데이터를 모두 삭제합니까?'))return;localStorage.removeItem('momos_eval_v3');state.sessions=[];state.evaluations=[];showToast('초기화 완료');}
 let toastTimer;
-function showToast(msg){
-  const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show');
-  clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2800);
-}
-
-// ── INIT ──
-window.addEventListener('DOMContentLoaded',()=>{ loadState(); checkUrlParams(); });
+function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2800);}
+window.addEventListener('DOMContentLoaded',()=>{loadState();checkUrlParams();});
 </script>
 </body>
 </html>
